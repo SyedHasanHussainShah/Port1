@@ -814,16 +814,24 @@ export default function App() {
       </main>
 
       {/* Footer */}
-      <footer className="mt-24 border-t border-slate-200 dark:border-slate-800">
-        <div className="container-responsive py-8 text-sm text-slate-500 dark:text-slate-400 flex items-center justify-between">
-          <span>
-            © {new Date().getFullYear()} {PROFILE.name}. All rights reserved.
-          </span>
-          <span className="flex items-center gap-2">
-            <SiVite />
-          </span>
-        </div>
-      </footer>
+        <footer className="mt-24 relative overflow-hidden border-t border-slate-200 dark:border-slate-800">
+  {/* Background Glow Animation */}
+  <div className="absolute inset-0">
+    <div className="absolute -top-20 -left-20 w-60 h-60 bg-sky-400/20 rounded-full blur-3xl animate-pulse"></div>
+    <div className="absolute -bottom-20 -right-20 w-72 h-72 bg-indigo-500/20 rounded-full blur-3xl animate-pulse delay-700"></div>
+  </div>
+
+  {/* Footer Content */}
+  <div className="relative container-responsive py-6 flex flex-col items-center gap-3 text-center z-10">
+    {/* Gradient Line */}
+    <div className="w-24 h-1 rounded-full bg-gradient-to-r from-sky-500 via-blue-500 to-indigo-500 animate-gradient-x"></div>
+
+    {/* Name */}
+    <p className="text-sm sm:text-base font-medium text-slate-700 dark:text-slate-300">
+      © {new Date().getFullYear()} Syed Hassan Hussain Shah
+    </p>
+  </div>
+</footer>
     </div>
   );
 }
