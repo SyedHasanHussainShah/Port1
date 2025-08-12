@@ -268,11 +268,11 @@ export default function App() {
             <a href="#projects" className="hover:text-sky-600">
               Projects
             </a>
-            <a href="#education" className="hover:text-sky-600">
-              Education
-            </a>
             <a href="#skills" className="hover:text-sky-600">
               Skills
+            </a>
+            <a href="#education" className="hover:text-sky-600">
+              Education
             </a>
             <a href="#contact" className="hover:text-sky-600">
               Contact
