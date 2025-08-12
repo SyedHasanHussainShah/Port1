@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { Typewriter } from "react-simple-typewriter";
 import { motion } from "framer-motion";
 import AnimatedName from "./components/AnimatedName";
+import ScrollProgressCircle from "./components/ScrollProgressCircle";
 import {
   Github,
   Linkedin,
@@ -12,6 +13,10 @@ import {
   Briefcase,
   BookOpen,
   Code2,
+  Menu,
+  X,
+  FolderGit2,
+  Code,
 } from "lucide-react";
 import {
   FaBootstrap,
@@ -240,22 +245,20 @@ function useReveal() {
 export default function App() {
   const [theme, toggleTheme] = useTheme();
 
-  const {
-    ref: heroRef,
-    inView: heroInView,
-  } = useReveal();
-
+  const { ref: heroRef, inView: heroInView } = useReveal();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   return (
     <div className="min-h-screen bg-[rgb(var(--bg))] text-[rgb(var(--fg))]">
       {/* Navbar */}
       <nav
         className="sticky top-0 z-50 
-    bg-white/90 text-slate-900 dark:bg-slate-900/80 dark:text-white 
-    backdrop-blur-md shadow-md 
-    border-b border-slate-200 dark:border-slate-800
-    transition-all duration-300 ease-in-out"
+        bg-white/90 text-slate-900 dark:bg-slate-900/80 dark:text-white 
+        backdrop-blur-md shadow-md 
+        border-b border-slate-200 dark:border-slate-800
+        transition-all duration-300 ease-in-out"
       >
         <div className="container-responsive flex items-center justify-between py-3">
+          {/* Logo */}
           <a
             href="#home"
             className="flex items-center gap-2 text-lg font-extrabold"
@@ -264,20 +267,36 @@ export default function App() {
             <span className="hidden sm:inline">{PROFILE.name}</span>
             <span className="sm:hidden">SHHS</span>
           </a>
+
+          {/* Desktop Links with Icons */}
           <div className="hidden md:flex items-center gap-6 text-sm font-semibold">
-            <a href="#projects" className="hover:text-sky-600">
-              Projects
+            <a
+              href="#projects"
+              className="flex items-center gap-2 hover:text-sky-500 transition-colors"
+            >
+              <FolderGit2 size={16} /> Projects
             </a>
-            <a href="#skills" className="hover:text-sky-600">
-              Skills
+            <a
+              href="#education"
+              className="flex items-center gap-2 hover:text-sky-500 transition-colors"
+            >
+              <GraduationCap size={16} /> Education
             </a>
-            <a href="#education" className="hover:text-sky-600">
-              Education
+            <a
+              href="#skills"
+              className="flex items-center gap-2 hover:text-sky-500 transition-colors"
+            >
+              <Code size={16} /> Skills
             </a>
-            <a href="#contact" className="hover:text-sky-600">
-              Contact
+            <a
+              href="#contact"
+              className="flex items-center gap-2 hover:text-sky-500 transition-colors"
+            >
+              <Mail size={16} /> Contact
             </a>
           </div>
+
+          {/* Icons */}
           <div className="flex items-center gap-2">
             <a
               href="https://github.com/SyedHasanHussainShah"
@@ -288,7 +307,6 @@ export default function App() {
             >
               <Github size={18} />
             </a>
-
             <a
               href="https://www.linkedin.com/in/syed-hassan-hussain-shah-a3351b2b5/"
               target="_blank"
@@ -298,6 +316,8 @@ export default function App() {
             >
               <Linkedin size={18} />
             </a>
+
+            {/* Theme Toggle */}
             <button
               onClick={toggleTheme}
               className="btn-outline"
@@ -305,10 +325,55 @@ export default function App() {
             >
               {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
             </button>
+            {/* Mobile Menu Button - only show on mobile */}
+            {window.innerWidth < 768 && (
+            <button
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="md:hidden btn-outline "
+              aria-label="Menu"
+            >
+              {isMenuOpen ? <X size={18} /> : <Menu size={18} />}
+            </button>
+            )}
           </div>
         </div>
-      </nav>
 
+        {/* Mobile Dropdown Menu */}
+        {isMenuOpen && (
+          <div className="md:hidden bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 shadow-md animate-slide-down">
+            <div className="flex flex-col p-4 space-y-3 text-sm font-semibold">
+              <a
+                href="#projects"
+                onClick={() => setIsMenuOpen(false)}
+                className="flex items-center gap-2 hover:text-sky-500"
+              >
+                <FolderGit2 size={16} /> Projects
+              </a>
+              <a
+                href="#education"
+                onClick={() => setIsMenuOpen(false)}
+                className="flex items-center gap-2 hover:text-sky-500"
+              >
+                <GraduationCap size={16} /> Education
+              </a>
+              <a
+                href="#skills"
+                onClick={() => setIsMenuOpen(false)}
+                className="flex items-center gap-2 hover:text-sky-500"
+              >
+                <Code size={16} /> Skills
+              </a>
+              <a
+                href="#contact"
+                onClick={() => setIsMenuOpen(false)}
+                className="flex items-center gap-2 hover:text-sky-500"
+              >
+                <Mail size={16} /> Contact
+              </a>
+            </div>
+          </div>
+        )}
+      </nav>
       {/* Hero */}
       <header id="home" className="container-responsive">
         <motion.section
@@ -661,7 +726,6 @@ export default function App() {
               target="_blank"
               rel="noopener noreferrer"
               className="px-7 py-4 bg-white text-sky-700 font-bold rounded-2xl shadow-lg hover:shadow-2xl hover:scale-110 transition-transform duration-300 flex items-center gap-3 z-10 group"
-            
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -814,24 +878,25 @@ export default function App() {
       </main>
 
       {/* Footer */}
-        <footer className="mt-24 relative overflow-hidden border-t border-slate-200 dark:border-slate-800">
-  {/* Background Glow Animation */}
-  <div className="absolute inset-0">
-    <div className="absolute -top-20 -left-20 w-60 h-60 bg-sky-400/20 rounded-full blur-3xl animate-pulse"></div>
-    <div className="absolute -bottom-20 -right-20 w-72 h-72 bg-indigo-500/20 rounded-full blur-3xl animate-pulse delay-700"></div>
-  </div>
+      <footer className="mt-24 relative overflow-hidden border-t border-slate-200 dark:border-slate-800">
+        {/* Background Glow Animation */}
+        <div className="absolute inset-0">
+          <div className="absolute -top-20 -left-20 w-60 h-60 bg-sky-400/20 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute -bottom-20 -right-20 w-72 h-72 bg-indigo-500/20 rounded-full blur-3xl animate-pulse delay-700"></div>
+        </div>
 
-  {/* Footer Content */}
-  <div className="relative container-responsive py-6 flex flex-col items-center gap-3 text-center z-10">
-    {/* Gradient Line */}
-    <div className="w-24 h-1 rounded-full bg-gradient-to-r from-sky-500 via-blue-500 to-indigo-500 animate-gradient-x"></div>
+        {/* Footer Content */}
+        <div className="relative container-responsive py-6 flex flex-col items-center gap-3 text-center z-10">
+          {/* Gradient Line */}
+          <div className="w-24 h-1 rounded-full bg-gradient-to-r from-sky-500 via-blue-500 to-indigo-500 animate-gradient-x"></div>
 
-    {/* Name */}
-    <p className="text-sm sm:text-base font-medium text-slate-700 dark:text-slate-300">
-      © {new Date().getFullYear()} Syed Hassan Hussain Shah
-    </p>
-  </div>
-</footer>
+          {/* Name */}
+          <p className="text-sm sm:text-base font-medium text-slate-700 dark:text-slate-300">
+            © {new Date().getFullYear()} Syed Hassan Hussain Shah
+          </p>
+        </div>
+      </footer>
+      <ScrollProgressCircle />
     </div>
   );
 }
