@@ -250,7 +250,7 @@ export default function App() {
   const [theme, toggleTheme] = useTheme();
   const { ref: heroRef, inView: heroInView } = useReveal();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+  const [, setIsMobile] = useState(window.innerWidth < 768);
 
   useEffect(() => {
     const handleResize = () => {
