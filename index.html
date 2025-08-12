@@ -14,5 +14,15 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+    <script>
+  if (!localStorage.theme) {
+    localStorage.theme = "dark";
+  }
+  if (localStorage.theme === "dark") {
+    document.documentElement.classList.add("dark");
+  } else {
+    document.documentElement.classList.remove("dark");
+  }
+</script>
   </body>
 </html>
